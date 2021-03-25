@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            float: left;
+        }
+
+        #father {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            margin: 10px;
+        }
+
+        #son {
+            width: 100px;
+            height: 100px;
+            border: 1px solid blue;
+            padding-bottom: 10%;
+        }
+
+        #hhh {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="father">
+        <div id="son"></div>
+    </div>
+    <div id="hhh"></div>
+    <script>
+        let obj1 = { a: { b: 1 }, sym: Symbol(1) };
+        // 在obj1上定义一个名为"innumerable"不可枚举属性
+        Object.defineProperty(obj1, 'innumerable', {
+            value: '不可枚举属性',
+            enumerable: false
+        });
+        let obj2 = {};
+        Object.assign(obj2, obj1)
+        obj1.a.b = 2;
+        console.log('obj1', obj1);
+        console.log('obj2', obj2);
+    </script>
+</body>
+
+</html>

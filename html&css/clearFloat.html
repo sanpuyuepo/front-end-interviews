@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除浮动</title>
+    <style>
+        div {
+            width: 300px;
+            padding: 10px;
+            background-color: #bfa;
+            /* 方法2：BFC */
+            /* overflow: hidden; */
+            
+        }
+
+        div span {
+            width: 25%;
+            float: left; 
+        }
+
+
+        /* 
+        方法1：clear both
+         */
+        /* div p {
+            color: white;
+            background-color: turquoise;
+            text-align: center;
+            clear: both;
+        } */
+
+        /* 
+        方法3：伪元素 clearfix 用的最多的
+         */
+        .clearfix::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="clearfix">
+        <h2><a href="" class="title">resumes</a></h2>
+        <span><a href="">aaaaa</a></span>
+        <span><a href="">bbbb</a></span>
+        <span><a href="">cccc</a></span>
+        <span><a href="">dddd</a></span>
+        <span><a href="">eeee</a></span>
+        <span><a href="">fffff</a></span>
+        <span><a href="">gggggg</a></span>
+        <span><a href="">hhhhh</a></span>
+        <span><a href="">iiiii</a></span>
+        <span><a href="">jjjjj</a></span>
+        <span><a href="">kkkkkk</a></span>
+        <span><a href="">lllll</a></span>
+        <span><a href="">mmmmmm</a></span>
+        <!-- <p>一个p标签</p> -->
+    </div>
+</body>
+</html>

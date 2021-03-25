@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>梯形和平行四边形</title>
+    <style>
+        /* 
+        梯形：也是通过边框实现，设置高度或者宽度其中一个为梯形的底边
+         */
+        #trapezoid {
+            width: 100px;
+            height: 0;
+            border-bottom: red 100px solid;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+        }
+
+        /* 
+        平行四边形：设置矩形的transform属性来实现
+        CSStransform属性允许你旋转，缩放，倾斜或平移给定元素
+        skew(ax)或skew(ax, ay)：
+        ax: 该参数为一个角度 <angle> ， 表示用于沿着横坐标扭曲元素的角度 。
+        ay: 该参数为一个角度 <angle> ， 表示用于沿纵坐标扭曲元素的角度 。
+         */
+        #parallelogram {
+            width: 150px;
+            height: 100px;
+            transform: skew(10deg);
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>梯形</h2>
+    <div id="trapezoid"></div>
+    <h2>Parallelogram 平行四边形</h2>
+    <div id="parallelogram"></div>
+</body>
+
+</html>

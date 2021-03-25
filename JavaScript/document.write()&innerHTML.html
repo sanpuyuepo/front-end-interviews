@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document.write()和innerHTML的区别</title>
+</head>
+<body>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae error dolorum fugiat nobis dolore minima laudantium numquam magni nesciunt delectus quos, dolor unde accusamus optio beatae veniam ipsam amet assumenda.
+    </p>
+    <ul>
+        <li>石头</li>
+        <li id="2">剪刀</li>
+        <li>布</li>
+    </ul>
+
+    <script>
+        /* 
+            write():
+            接受一个字符串参数，简单的写入网页，用来在页面加载期间动态添加内容（包括JavaScript代码）
+            在页面加载完之后调用document.write()则会重写整个页面
+            多次调用会拼接写入的内容
+
+        */
+
+       // 在页面加载完之后调用document.write()则会重写整个页面
+       /* window.onload = function() {
+           document.write("hhh")
+       } */
+
+       document.write('hhh');
+       document.write('<h1>I am a title</h1>')
+
+       /* 
+           innerHTML：
+           接受一个字符串作为值，可以是表达式或函数，插入或修改网页内容
+           多次调用会取最后一次的结果
+           对自适应标签不适用
+
+       */
+       let second = document.getElementById('2');
+       second.innerHTML = 'innerHTML'
+       // 多次调用会取最后一次的结果
+       second.innerHTML = '之前的被覆盖了！'
+
+    </script>
+</body>
+</html>

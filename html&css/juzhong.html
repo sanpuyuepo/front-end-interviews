@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水平垂直居中</title>
+    <style>
+        #outer {
+            width: 600px;
+            height: 600px;
+            border: solid 2px red;
+        }
+
+        #inner {
+            width: 150px;
+            height: 150px;
+            background-color: #bfa;
+        }
+
+        /*
+        1、最简单：弹性盒布局, 给外层元素设置 
+        justify-content 水平居中
+        align-items 垂直居中
+        */
+        /* .outer-center {
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+        } */
+
+        /* 
+        方法2，也是弹性盒布局,
+         */
+       /*  .outer-center{
+            display: flex;
+        }
+        .inner-center {
+            margin: auto;
+        } */
+
+        /* 
+        方法3： grid 布局
+        */
+        /* .outer-center{
+            display: grid;
+        }
+        .inner-center {
+            margin: auto;
+        } */
+
+        /* 
+        方法4： grid 布局
+        */
+        /* .outer-center{
+            display: grid;
+        }
+        .inner-center {
+            justify-self: center;
+            align-self: center;
+        } */
+        /* 
+        方法5：定位
+         */
+        /* .outer-center{
+            position: relative;
+        }
+        .inner-center {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        } */ 
+         /* 
+        方法6：定位
+         */
+        .outer-center{
+            position: relative;
+        }
+        .inner-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        } 
+    </style>
+</head>
+<body>
+    <div id="outer" class="outer-center">
+        <div id="inner" class="inner-center"></div>
+    </div>
+</body>
+</html>

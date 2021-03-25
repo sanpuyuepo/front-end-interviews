@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>各种各样的三角形</title>
+    <style>
+        /* 
+        三角形原理：宽高为0，通过border实现
+         */
+    
+        #triangle-up {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid red;
+        }
+        /* 
+        为三角形设置border-radius
+         */
+        #shanxing-up {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid red;
+            border-radius: 100%;
+        }
+        #triangle-down {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 100px solid red;
+        }
+
+        #triangle-left {
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-right: 100px solid red;
+        }
+
+        #triangle-right {
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-left: 100px solid red;
+        }
+
+        #triangle-top-left {
+            width: 0;
+            height: 0;
+            border-top: 100px solid red;
+            border-right: 100px solid transparent;
+        }
+
+        #triangle-top-right {
+            width: 0;
+            height: 0;
+            border-top: 100px solid red;
+            border-left: 100px solid transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>扇形</h2>
+    <div id="shanxing-up"></div>
+    <h2>上三角</h2>
+    <div id="triangle-up"></div>
+    <h2>下三角</h2>
+    <div id="triangle-down"></div>
+    <h2>左三角</h2>
+    <div id="triangle-left"></div>
+    <h2>右三角</h2>
+    <div id="triangle-right"></div>
+    <h2>左上三角</h2>
+    <div id="triangle-top-left"></div>
+    <h2>右上三角</h2>
+    <div id="triangle-top-right"></div>
+</body>
+
+</html>

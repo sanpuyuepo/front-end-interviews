@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单行省略及多行省略</title>
+    <style>
+        /* 
+        单行省略
+         */
+        #box1 p {
+            width: 500px;
+            border: 5px dotted greenyellow;
+            overflow: hidden;
+            /* 隐藏溢出部分 */
+            text-overflow: ellipsis;
+            /* 设置文本溢出显示省略号， 只适用于单行文本*/
+            white-space: nowrap;
+            /* 设置不换行 */
+        }
+
+        /* 
+        多行省略
+         */
+        p {
+            height: 110px;
+            border: 5px solid pink;
+            overflow: hidden;
+            background-color: #bfa;
+            /* 
+            方法1：通过私有属性 -webkit-box 用于自适应布局 
+            缺点：使用私有属性需要考虑跨浏览器的问题
+            */
+            /* display: -webkit-box; 
+            -webkit-box-orient: vertical; 
+            -webkit-line-clamp: 5; */
+            /* 
+            方法2：
+            text-align：文本对齐
+            padding-right：右外边距，设置文本与省略号的距离
+            */
+            position: relative;
+            text-align: justify; 
+            padding-right: 1em;
+        }
+
+        /* 
+        方法2：双重伪元素实现 省略号也是文本，在文本里加几个点
+        ::before 显示省略号：right 、 bottom 设置省略号的位置
+        ::after 当拖动到文本完全显示不需要省略号是覆盖掉省略号
+        缺点：如果背景是图片的话不好操作
+         */
+        p::before {
+            content: '...';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        p::after {
+            content: '';
+            width: 1em;
+            height: 1em;
+            display: inline;
+            right: 0;
+            position: absolute;
+            right: 0; /* 只设置right，此时伪元素始终跟在文本后面 */
+            margin-top: 0.5em;
+            background-color: #bfa;
+
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <!-- <div id="box1">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error expedita, aliquam earum voluptates animi
+            excepturi.
+            Delectus placeat dolorem nam quas obcaecati amet inventore deserunt. Omnis aliquid tempore deserunt. Non,
+            assumenda!
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat quasi iure ut obcaecati fuga recusandae
+            incidunt eos, quae autem nemo, in, dolor ratione. Esse deserunt doloremque a tempore dicta illum.</p>
+
+    </div> -->
+
+    <div id="box2">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quaerat aliquid deserunt dolore perferendis? Cum a doloribus suscipit magni. Aliquam a temporibus sequi et, tenetur vero nulla odio perspiciatis quas!
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta voluptatum quae in, corrupti fugit aliquid dignissimos quasi! Eligendi corporis velit, molestiae itaque porro saepe, rerum sunt minus dicta necessitatibus atque.
+           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident quibusdam reprehenderit minus, amet alias perspiciatis autem officia ipsum, odit quas cupiditate, at dolor iure vitae. Vero corrupti voluptates quisquam facere.</p>
+    </div>
+</body>
+
+</html>

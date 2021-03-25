@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>园及椭圆</title>
+    <style>
+        /* 
+        border-radius 允许你设置元素的外边框圆角。
+        当使用一个半径时确定一个圆形，当使用两个半径时确定一个椭圆。这个(椭)圆与边框的交集形成圆角效果。
+
+         */
+         #circle {
+            width: 100px;
+            height: 100px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        #oval {
+            width: 200px;
+            height: 100px;
+            border-radius: 200px / 100px; /* 半长轴 /半短轴。水平半轴相对于盒模型的宽度；垂直半轴相对于盒模型的高度 */
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>圆形</h2>
+    <div id="circle"></div>
+    <h2>椭圆</h2>
+    <div id="oval"></div>
+</body>
+</html>
