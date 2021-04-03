@@ -40,17 +40,15 @@
     </div>
     <div id="hhh"></div>
     <script>
-        let obj1 = { a: { b: 1 }, sym: Symbol(1) };
-        // 在obj1上定义一个名为"innumerable"不可枚举属性
-        Object.defineProperty(obj1, 'innumerable', {
-            value: '不可枚举属性',
-            enumerable: false
-        });
-        let obj2 = {};
-        Object.assign(obj2, obj1)
-        obj1.a.b = 2;
-        console.log('obj1', obj1);
-        console.log('obj2', obj2);
+        console.log("arguments 对象*************************************************");
+        function foo(name, age, sex) {
+            console.log(arguments);
+            console.log(typeof arguments);
+            console.log(Object.prototype.toString.call(arguments));
+
+            console.log(arguments.callee)
+        }
+        foo('jack', '18', 'male');
     </script>
 </body>
 
