@@ -1,0 +1,19 @@
+@outer-width: 400px;
+@outer-height: 400px;
+
+#outer {
+    width: @outer-width;
+    height: @outer-height;
+    border: 1px solid red;
+
+    #inner {
+       width: 100px;; 
+       height: 100px;
+       border: 1px solid blue;
+       background: #bfa;
+
+       span {
+           color: rgb(228, 136, 17);
+       }
+    }
+}

@@ -1,0 +1,14 @@
+#outer {
+  width: 400px;
+  height: 400px;
+  border: 1px solid red;
+}
+#outer #inner {
+  width: 100px;
+  height: 100px;
+  border: 1px solid blue;
+  background: #bfa;
+}
+#outer #inner span {
+  color: #e48811;
+}
