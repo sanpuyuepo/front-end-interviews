@@ -40,15 +40,14 @@
     </div>
     <div id="hhh"></div>
     <script>
-        console.log("arguments 对象*************************************************");
-        function foo(name, age, sex) {
-            console.log(arguments);
-            console.log(typeof arguments);
-            console.log(Object.prototype.toString.call(arguments));
+        console.log(a) //a is not defined
 
-            console.log(arguments.callee)
+        if (true) {
+            let a = '123';
+            console.log(a); // 123
         }
-        foo('jack', '18', 'male');
+
+        console.log(a) //a is not defined
     </script>
 </body>
 

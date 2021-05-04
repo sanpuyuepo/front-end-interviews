@@ -1,6 +1,6 @@
 /* 
 typeof 检测数据类型， 返回字符串
-instanceof 检测引用类型是否是某对象的实例，返回布尔值
+instanceof                         
 
 instanceof 可以准确地判断复杂引用数据类型，但是不能正确判断基础数据类型；
 而 typeof 也存在弊端，它虽然可以判断基础数据类型（null 除外），但是引用数据类型中，除了 function 类型以外，其他的也无法判断。
@@ -24,7 +24,7 @@ function myInstanceof(value, type) {
     if (typeof value !== "object" || value === null) {
         return false;
     }
-    // getProtypeOf是Object对象自带的API，能够拿到参数的原型对象
+    // getPrototypeOf是Object对象自带的API，能够拿到参数的原型对象
     let proto = Object.getPrototypeOf(value);
     //循环往下寻找，直到找到相同的原型对象
     while (true) {
@@ -44,12 +44,12 @@ function myInstanceof(value, type) {
 // console.log(myInstanceof(new Number(123), Number));    
 // console.log(myInstanceof(123, Number));
 
-/* 
-第三种方法： Object.prototype.toString
+
+/* 第三种方法： Object.prototype.toString
 toString() 是 Object 的原型方法，调用该方法，可以统一返回格式为 “[object Xxx]” 的字符串，
 其中 Xxx 就是对象的类型。对于 Object 对象，直接调用 toString() 就能返回 [object Object]；
-而对于其他对象，则需要通过 call 来调用，才能返回正确的类型信息。
-*/
+而对于其他对象，则需要通过 call 来调用，才能返回正确的类型信息。 */
+
 Object.prototype.toString({})       // "[object Object]"
 Object.prototype.toString.call({})  // 同上结果，加上call也ok
 Object.prototype.toString.call(1)    // "[object Number]"
@@ -70,7 +70,7 @@ function getDataType(obj) {
     if (type !== 'object') {
         return type;
     }
-    return Object.prototype.toString.call(obj).replaceo(/^\[bject (\S+)\]$/, '$1');
+    return Object.prototype.toString.call(obj).replace(/^\[bject (\S+)\]$/, '$1');
 }
 /* 代码验证，需要注意大小写，哪些是typeof判断，哪些是toString判断？思考下 */
 getDataType([])     // "Array" typeof []是object，因此toString返回

@@ -1,7 +1,7 @@
-// for(var i = 0; i < 5; i++) {
-//     setTimeout(() => console.log(i), 4000);
-// }
-// console.log(i);
+for(var i = 0; i < 5; i++) {
+    setTimeout(() => console.log(i), 4000);
+}
+console.log(i);
 
 /* 
 ES6之前可以使用IIFE来实现
