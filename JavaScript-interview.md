@@ -1,3 +1,5 @@
+
+
 # JavaScript数据类型有几种？
 
 基本数据类型：7 种，Undefined / Null / Boolean / String / Number / Symbol(ES6) / BigInt(ES?)
@@ -974,3 +976,595 @@ console.log(Object.getPrototypeOf(a) === Array.prototype);
 console.log(Object.prototype.toString.apply(a) === '[object Array]');
 ```
 
+---
+
+## 方法总览
+
+<img src="C:\Users\ajiai\AppData\Roaming\Typora\typora-user-images\image-20210505101106496.png" alt="image-20210505101106496" style="zoom:80%;" />
+
+### 迭代器方法
+
+#### **keys()**
+
+返回数组索引的迭代器
+
+#### **values()**
+
+返回数组元素的迭代器
+
+#### **entries()**
+
+返回 索引 / 值 对的迭代器
+
+```javascript
+const arr = ['foo', 'bar', 'baz', 'qux'];
+// 返回的迭代器，可以将内容通过Array.from转换为数组实例
+const keys = Array.from(arr.keys());
+const values = Array.from(arr.values());
+const entries = Array.from(arr.entries());
+
+console.log(keys); // [0, 1, 2, 3]
+console.log(values); // ['foo', 'bar', 'baz', 'qux']
+console.log(entries); // [ [ 0, 'foo' ], [ 1, 'bar' ], [ 2, 'baz' ], [ 3, 'qux' ] ]
+
+// 使用ES6的解构可以非常容易的在循环中拆分键值对
+console.log("使用ES6的解构可以非常容易的在循环中拆分键值对:");
+for (const [idx, element] of arr.entries()) {
+    console.log(idx);
+    console.log(element);
+}
+```
+
+---
+
+### 复制和填充方法
+
+#### **fill()**
+
+作用：填充数组，用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引
+
+语法：arr.fill(value[, start[, end]])
+
+```javascript
+const zeroes = [0, 0, 0, 0, 0];
+zeroes.fill(5)
+console.log(zeroes); // [ 5, 5, 5, 5, 5 ]
+
+zeroes.fill(6, 3);
+console.log(zeroes); // [ 5, 5, 5, 6, 6 ]
+
+zeroes.fill(7, 1, 3);
+console.log(zeroes); // [ 5, 7, 7, 6, 6 ]
+```
+
+#### **copyWithin()**
+
+作用：按照指定范围浅复制数组中的部分内容，浅拷贝数组中 start 到 end 的内容, 然后插入到指定索引 target 的位置
+
+语法：arr.copyWithin(target[, start[, end]])
+
+- start 默认从0开始，end 默认到数组结尾
+
+```javascript
+let ints = [];
+let reset = () => ints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+reset();
+ints.copyWithin(5);
+console.log(ints); // [ 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 ]
+
+reset();
+ints.copyWithin(0, 5);
+console.log(ints); // [ 5, 6, 7, 8, 9, 5, 6, 7, 8, 9 ]
+
+reset();
+ints.copyWithin(4, 0, 3)
+console.log(ints); [ 0, 1, 2, 3, 0, 1, 2, 7, 8, 9 ]
+```
+
+---
+
+### 转换方法
+
+所有对象都有 toLocalString(), toString(), valueOf() 方法。 
+
+#### **toString()**
+
+返回由数组中每个值的等效字符串拼接而成的逗号分隔的字符串
+
+#### **valueOf()**
+
+返回数组本身
+
+---
+
+### 栈方法
+
+#### **push()** 
+
+接受任意数量参数,添加到数组末尾,返回数组长度
+
+#### **pop()**
+
+删除数组最后一项, 返回被删除项
+
+```javascript
+let stack = new Array();
+let count = stack.push("red", "green");
+console.log(count);
+
+count = stack.push("pink");
+console.log(count);
+
+let removed = stack.pop();
+console.log(removed);
+console.log(stack.length);
+```
+
+---
+
+### *队列方法*
+
+#### **shift**
+
+删除数组第一项并返回该项
+
+#### **unshift**
+
+在数组开头添加任意多值, 返回数组长度
+
+*shift + push 模拟队列*
+
+unshift + pop　相反方向模拟队列
+
+---
+
+### 排序方法
+
+#### **reverse**()
+
+将数组反向排序
+
+#### **sort()**
+
+默认升序排列, sort 会在每一项上调用String()转型函数,然后比较字符串
+
+```javascript
+let aaa = [0, 1, 5, 10, 15];
+console.log(aaa.reverse()); // [ 15, 10, 5, 1, 0 ]
+
+// sort 默认升序排列, sort 会在每一项上调用String()转型函数,然后比较字符串
+console.log(aaa.sort()); // [ 0, 1, 10, 15, 5 ]
+// 为此 sort() 可以接受一个比较函数来辅助排序
+function compare(value1, value2) {
+    if (value1 < value2) {
+        return -1;
+    } else if (value1 > value2) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+console.log(aaa.sort(compare)); // [ 0, 1, 5, 10, 15 ]
+// 可以使用箭头函数
+console.log(aaa.sort((a, b) => a < b ? -1 : a > b ? 1 : 0));
+```
+
+---
+
+### 操作方法
+
+#### concat()
+
+*创建当前数组的副本,再将参数添加的副本末尾,并返回该数组副本*
+
+```javascript
+let bbb = ['red', 'blue', 'pink'];
+let ccc = bbb.concat('yellow', ['green', 'purple']);
+console.log(bbb); // [ 'red', 'blue', 'pink' ]
+console.log(ccc); // [ 'red', 'blue', 'pink', 'yellow', 'green', 'purple' ]
+```
+
+#### slice()
+
+*创建一个包含原有数组中一个或多个元素的新数组*
+
+语法：arr.slice([begin[, end]])
+
+- begin，end 可选，end不包含
+- 参数为负值时,以该值加数组长度的结果确定位置
+
+#### splice()
+
+*返回包含被删除项的数组, 会改变原始数组，可以删除,插入,替换数组元素*
+
+语法：splice(start, deleteCount, insertEle) 
+
+```javascript
+let eee = ['red', 'green', 'blue'];
+// 删除
+let removedItem = eee.splice(0, 1);
+console.log(eee); // [ 'green', 'blue' ]
+console.log(removedItem); // ['red']
+
+// 插入
+removedItem = eee.splice(1, 0, 'yellow', 'orange');
+console.log(eee); // [ 'green', 'yellow', 'orange', 'blue' ] 
+console.log(removedItem); // []
+
+// 替换
+removedItem = eee.splice(1, 1, 'red', 'purple');
+console.log(eee); // [ 'green', 'red', 'purple', 'orange', 'blue' ]
+console.log(removedItem); // [ 'yellow' ]
+```
+
+---
+
+### 搜索和位置方法
+
+ECMAScript 提供了两类搜索数组的方法：严格相等搜索以及按断言函数搜索
+
+#### 严格相等搜索
+
+严格相等意思是在比较相等时使用全等来比较
+
+##### indexOf()
+
+返回指定元素在数组中的第一个索引，如果不存在，则返回-1
+
+语法：arr.indexOf(searchElement[, fromIndex])
+
+##### lastIndexOf()
+
+返回指定元素在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 `fromIndex` 处开始
+
+语法：arr.lastIndexOf(searchElement[, fromIndex])
+
+##### includes()
+
+ES7 新增，判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false
+
+语法：arr.includes(valueToFind[, fromIndex])
+
+#### 断言函数
+
+断言函数接收3个参数：元素，索引，数组本身,
+
+##### find()
+
+返回数组中满足提供的断言函数的第一个元素的值。否则返回 undefined
+
+##### findIndex()
+
+返回数组中满足提供的断言函数的第一个元素的**索引**。若没有找到对应元素则返回-1
+
+```javascript
+let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+
+console.log(numbers.indexOf(4)); // 3
+console.log(numbers.lastIndexOf(4)); // 5
+console.log(numbers.includes(4)); // true
+
+console.log(numbers.indexOf(4, 4)); // 5
+console.log(numbers.lastIndexOf(4, 4)); // 3
+console.log(numbers.includes(4, 7)); // false
+
+const people = [{
+    name: 'Matt',
+    age: 27,
+}, {
+    name: 'Nicholas',
+    age: 29
+}];
+
+console.log(people.find((element, index, array) => element.age < 28)); // { name: 'Matt', age: 27 }
+console.log(people.findIndex((element, index, array) => element.age < 28)); // 0
+```
+
+---
+
+### 迭代方法
+
+```javascript
+/* 
+每个方法接受两个参数： param1: func(item, index, array): 处理数组元素 param2: 可选的作为函数运行上下文的作用域对象
+数组的每一项都经过func处理后, 
+1. every(): 每一项返回true，则返回true
+2. some(): 有一项返回true， 则返回true
+3，filter(): 返回true的项组成数组后返回该数组
+4，map(): 返回每次调用func的结果构成的数组
+5，forEach(): 无返回值
+*/
+let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+
+let everyResult = numbers.every((item, index, array) => item > 2);
+console.log(everyResult); // false
+
+let someResult = numbers.some((item, index, array) => item > 2);
+console.log(someResult); // true
+
+let filterRes = numbers.filter((item, index, array) => item > 2);
+console.log(filterRes); // [ 3, 4, 5, 4, 3 ]
+
+let mapRes = numbers.map((item, index, array) => item * 2);
+console.log(mapRes); // [ 2, 4, 6, 8, 10, 8, 6, 4, 2 ]
+```
+
+---
+
+### 归并方法
+
+#### reduce() & reduceRight()
+
+```javascript
+/* 
+reduce() / reduceRigth(): 
+param1： 归并函数callback, 
+    该函数接受4个参数：func(prev, cur, index, array)
+    prev（上一次调用回调函数时的返回值，或者初始值）
+    cur（当前正在处理的数组元素）
+    index（当前正在处理的数组元素下标）
+    array（调用 reduce() 方法的数组）
+param2: 可选的初始值，作为第一次调用回调函数时传给 prev 的值
+*/
+let nums = [1, 2, 3, 4, 5];
+let sum = nums.reduce((prev, cur) => prev + cur);
+console.log(sum);
+
+let objArr =  [ {name: 'one'}, {name: 'two'}, {name: 'three'} ];
+let res = objArr.reduce(function(prev, cur, index, array){
+  if (index === 0){
+    return cur.name;
+  } else if (index === array.length - 1){
+    return prev + ' & ' + cur.name;
+  } else {
+    return prev + ', ' + cur.name;
+  }
+}, '');
+console.log(res);
+```
+
+---
+
+# 类数组
+
+JavaScript 中有哪些情况下的对象是类数组呢？主要有以下几种：
+
+1. 函数里面的参数对象 arguments；
+2. 用 getElementsByTagName/ClassName/Name 获得的 HTMLCollection；
+3. 用 querySelector 获得的 NodeList
+
+## arguments
+
+arguments 是函数内部存在的特殊对象，是一个类数组对象，包含调用函数时传入的所以参数。该对象只有在 以function关键字定义函数时才有，即箭头函数没有
+
+arguments.callee 属性：是一个指针，指向arguments对象所在函数，可以用来实现函数逻辑和函数名解耦，可在非严格模式下用于递归函数实现优化
+
+```javascript
+function foo(name, age, sex) {
+    console.log(arguments);
+    console.log(typeof arguments);
+    console.log(Object.prototype.toString.call(arguments));
+
+    console.log(arguments.callee)
+}
+foo('jack', '18', 'male');
+```
+
+![image-20210505152627538](C:\Users\ajiai\AppData\Roaming\Typora\typora-user-images\image-20210505152627538.png)
+
+## HTMLCollection
+
+## NodeList
+
+---
+
+# 数组扁平化
+
+数组的扁平化其实就是将一个嵌套多层的数组 array（嵌套可以是任何层数）转换为只有一层的数组。
+
+## 普通递归实现
+
+```JavaScript
+function flatten(arr) {
+    let result = [];
+    for (let i = 0; i < arr.length; i++) {
+        // 如果每一项还是一个数组，那么就继续往下遍历
+        if (Array.isArray(arr[i])) {
+            result = result.concat(flatten(arr[i]));
+        } else {
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+```
+
+## 利用 reduce 函数
+
+```JavaScript
+function flatten(arr) {
+    let res = [];
+    return arr.reduce(function(prev, cur) {
+        return prev.concat(Array.isArray(cur) ? flatten(cur) : cur);
+    }, res)
+}
+```
+
+## 利用扩展运算符+ some()
+
+```javascript
+function flatten(arr) {
+    while (arr.some(item => Array.isArray(item))) {
+        arr = [].concat(...arr);
+    }
+    return arr;
+}
+```
+
+## split 和 toString 
+
+```javascript
+function flatten(arr) {
+    return arr.toString().split(',')
+}
+```
+
+## flat()
+
+直接使用ES6 中 flat() 方法，按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回
+
+语法：var newArray = arr.flat([depth])
+
+- `depth` 可选，指定要提取嵌套数组的结构深度，默认值为 1，传入 Infinity，代表不论多少层都要展开
+
+```javascript
+function flatten(arr) {
+    return arr.flat(Infinity);
+}
+```
+
+---
+
+# 内存泄漏
+
+## 什么是内存泄漏？
+
+已经分配堆内存地址的对象由于长时间未释放或者无法释放，造成了长期占用内存，使内存浪费，最终会导致运行的应用响应速度变慢以及最终崩溃的情况。内存泄漏容易导致内存溢出
+
+## 什么情况下会发生内存泄漏？
+
+1. 过多缓存未释放
+2. 闭包太多未释放
+3. 定时器或回调太多未释放
+4. 太多无效的DOM未释放
+5. 全局变量太多
+
+## 如何避免？
+
+1. 减少不必要的全局变量
+
+2. 使用完数据及时解除引用（闭包中的变量，DOM 引用，定时器清除）
+
+3. 组织好代码逻辑，避免死循环，对一些占用内存较大的对象提供手动释放内存的方法
+
+   ```JavaScript
+   var leakArray = [];
+   exports.clear = function () {
+       leakArray = [];
+   };
+   ```
+
+---
+
+# 事件循环
+
+浏览器或`Node`的一种解决`javaScript`单线程运行时不会阻塞的一种机制，也就是我们经常使用**异步**的原理
+
+JavaScript 中的任务被分为宏任务 Task 以及微任务 MicroTask。
+
+## 宏任务
+
+- script`全部代码`
+- setTimeout`、`setInterval`、`setImmediate`（浏览器暂时不支持，只有IE10支持）`
+- `I/O`、`UI Rendering
+- event listener
+
+## 微任务
+
+- Process.nextTick（Node独有）
+- Promise
+- MutationObserver
+- Object.observe(废弃)
+
+## 浏览器的 Eventloop
+
+`Javascript` 有一个 `main thread` 主线程和 `call-stack` 调用栈(执行栈)，所有的任务都会被放到调用栈等待主线程执行
+
+### 调用栈 
+
+当函数执行的时候，会被添加push到栈的顶部，当执行栈执行完成后，就会从栈顶谈弹出pop，直到栈内被清空
+
+### 事件队列
+
+负责将新的代码发送到队列中处理，遵循queue的数据结构特性，FIFO。
+
+### WebAPI
+
+web 提供的API，根据从调用栈收到的命令，API 开始自己的单线程操作，如setTimeout：
+
+在调用栈中处理 setTimeout 操作时，会将其发送到相应的 API，该 API 一直等到指定的时间将此操作送回事件队列（event queue）进行处理
+
+### 同步任务和异步任务
+
+`Javascript`单线程任务被分为**同步任务**和**异步任务**，同步任务会在调用栈中按照顺序等待主线程依次执行，异步任务会在异步任务有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候（调用栈被清空），被读取到栈内等待主线程的执行
+
+<img src="C:\Users\ajiai\AppData\Roaming\Typora\typora-user-images\image-20210505203001589.png" alt="image-20210505203001589" style="zoom:80%;" />
+
+### 
+
+**JavaScript 语言本身是单线程的，而浏览器 API 充当单独的线程**。事件循环（Eventloop）促进了这一过程，它会不断检查调用堆栈是否为空。如果为空，则从事件队列中添加新的函数进入调用栈（call stack）；如果不为空，则处理当前函数的调用。
+
+<img src="C:\Users\ajiai\AppData\Roaming\Typora\typora-user-images\image-20210505203655241.png" alt="image-20210505203655241" style="zoom:70%;" />
+
+简单来说 Eventloop 通过内部两个队列来实现 Event Queue 放进来的异步任务。以 setTimeout 为代表的任务被称为宏任务，放到宏任务队列（macrotask queue）中；而以 Promise 为代表的任务被称为微任务，放到微任务队列（microtask queue）中
+
+Event loop：
+
+1. 首先从宏任务队列取出第一个任务执行；如果宏任务队列为空，则直接执行第2步；
+2. 将微任务队列中的所有微任务取出，按照顺序全部执行，如果这一步中产生新的微任务也要执行；
+3. 界面渲染
+4. 再从宏任务队列中取下一个任务执行，循环往复知道两个队列中的任务都执行完。
+
+```javascript
+console.log(1);
+
+// 宏任务
+setTimeout(() => {
+    console.log(2);
+}, 0);
+
+// 微任务
+Promise.resolve().then(() => {
+    console.log(3);
+});
+
+console.log(4);
+
+// 微任务先于宏任务执行 
+// 1 4 3 2
+```
+
+**一次 Eventloop 循环会处理一个宏任务和所有这次循环中产生的微任务**
+
+
+
+---
+
+## Node.js 中的Eventloop
+
+当 Node.js 开始启动时，会初始化一个 Eventloop，处理输入的代码脚本，这些脚本会进行 API 异步调用，process.nextTick() 方法会开始处理事件循环。
+
+<img src="C:\Users\ajiai\AppData\Roaming\Typora\typora-user-images\image-20210505205015188.png" alt="image-20210505205015188" style="zoom:67%;" />
+
+- timers：执行setTimeout 和setInterval
+
+- I/O callbacks：主要执行系统级别的回调函数，如TCP连接失败的回调
+
+- idel, prepare：Node.js内部闲置、准备，可以忽略
+
+- poll：重要且复杂的阶段，几乎所有 I/O 相关的回调都在该阶段执行（除setTimeout、setInterval、setImmediate 以及一些因为 exception 意外关闭产生的回调）：
+
+  <img src="C:\Users\ajiai\AppData\Roaming\Typora\typora-user-images\image-20210505205505280.png" alt="image-20210505205505280" style="zoom:67%;" />
+
+- check：执行setImmediate() 设定的callbacks
+
+- close callbacks：执行关闭请求的回调
+
+除了把 Eventloop 的宏任务细分到不同阶段外。node 还引入了一个新的任务队列 Process.nextTick()
+
+Process.nextTick() 会在上述各个阶段结束时，在进入下一个阶段之前立即执行（优先级甚至超过 microtask 队列）
+
+---
+
+## EventLoop 对渲染的影响 

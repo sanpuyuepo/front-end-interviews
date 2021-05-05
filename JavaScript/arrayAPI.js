@@ -108,7 +108,7 @@ for (const [idx, element] of arr.entries()) {
 
 console.log("fill()*********************************************");
 /* 
-fill(value, startIndex(包含,可选), endIndex(不包含,可选)) 批量复制 想已有数组插入全部或部分相同的value
+fill(value, startIndex(包含,可选), endIndex(不包含,可选)) 批量复制 向已有数组插入全部或部分相同的 value
 
 */
 const zeroes = [0, 0, 0, 0, 0];

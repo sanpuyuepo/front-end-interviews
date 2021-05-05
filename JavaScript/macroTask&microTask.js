@@ -1,3 +1,5 @@
+// event loop 机制？？？ 和DOM渲染的关系？ 微任务和宏任务在event loop 中的执行顺序？
+
 // 第一题：打印结果是什么
 // Promise.resolve().then(() => {
 //     console.log(1);
@@ -33,7 +35,6 @@
 //         console.log(3);
 //     });
 
-
 // 第四题 a 和 b 输出结果是什么？
 // async function fn() {
 //     return 100;
@@ -60,7 +61,6 @@
 //     console.log('end');
 // })();
 
-
 // 第六题: 输出顺序是什么？
 // console.log(1);
 
@@ -75,7 +75,7 @@
 // console.log(4);
 
 // 第七题
-async function async1 () {
+async function async1() {
     console.log('async1 start');
     await async2();
 
@@ -97,7 +97,7 @@ async1();
 new Promise(function (resolve) {
     console.log('promise1');
     resolve();
-}).then(function() {
+}).then(function () {
     console.log('promise2');
 });
 

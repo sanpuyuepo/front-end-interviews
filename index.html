@@ -40,14 +40,14 @@
     </div>
     <div id="hhh"></div>
     <script>
-        console.log(a) //a is not defined
+        function foo(name, age, sex) {
+            console.log(arguments);
+            console.log(typeof arguments);
+            console.log(Object.prototype.toString.call(arguments));
 
-        if (true) {
-            let a = '123';
-            console.log(a); // 123
+            console.log(arguments.callee)
         }
-
-        console.log(a) //a is not defined
+        foo('jack', '18', 'male');
     </script>
 </body>
 
