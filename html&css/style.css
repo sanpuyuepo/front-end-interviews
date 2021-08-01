@@ -12,3 +12,7 @@
 #outer #inner span {
   color: #e48811;
 }
+
+div {
+  color: rgb(0, 0, 0);
+}
