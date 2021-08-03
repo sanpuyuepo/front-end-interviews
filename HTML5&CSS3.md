@@ -10,6 +10,7 @@
 
 1. 代码结构清晰，含义清楚，具有可读性，利于阅读理解
 2. 利于SEO，即搜索引擎优化：搜索引擎的爬虫依赖标签确定上下文和各个关键字的权重， 有助于爬虫抓取更多有效信息
+3. IE9及以下版本不适用
 
 ### H5新增标签与属性（部分）：
 
@@ -130,22 +131,22 @@
 
 6. **表单属性**
 
-   - autocomplete：自动完成，适用于 <form> 标签，以及以下类型的 <input> 标签：
+   - **autocomplete**：自动完成，适用于 <form> 标签，以及以下类型的 <input> 标签：
      text, search, url, telephone, email, password, datepickers, range, color。
-     用法：<form autocomplete="on“></form>或者单独在input中用off
-   - autofocus：自动地获得焦点，适用于所有 <input> 标签的类型
-     用法：<input autofocus="autofocus" />
-   - multiple：可选择多个值，适用于<input>中type为email和file
-     用法：<input type="file" multiple="multiple" />
-   - placeholder：适用于<input>中type为：text, search, url, telephone, email, password
-   - required：规定不能为空，适用于以下类型的 <input> 标签：
+     用法：`<form autocomplete="on“></form>`或者单独在input中用off
+   - **autofocus**：自动地获得焦点，适用于所有`<input>`标签的类型
+     用法：`<input autofocus="autofocus" />`
+   - **multiple**：可选择多个值，适用于<input>中type为email和file
+     用法：`<input type="file" multiple="multiple" />`
+   - **placeholder**：适用于<input>中type为：text, search, url, telephone, email, password
+   - **required**：规定不能为空，适用于以下类型的 <input> 标签：
      text, search, url, telephone, email, password, date pickers, number, checkbox, radio, file
-     用法：<input type="text" required="required" />
+     用法：`<input type="text" required="required" />`
 
 7. **链接属性**
 
    - size
-     <link rel=“icon” href=“icon.gif” type=“image/gif” size=“16x16”>
+     `<link rel="icon" href="icon.gif" type="image/gif" size="16x16">`
    - target
      
      <base href=“http://localhost/” target=“_blank”>
@@ -156,27 +157,31 @@
 
 8. **其他属性:**
 
-   - defer:加载完脚本后并不执行，而是等整个页面加载完之后再执行
+   - defer:加载完脚本后不执行，而是等整个页面加载完之后再执行
      
-     <script defer src=“URL”></script>
+     `<script defer src=“URL”></script>`
+     
    - async:加载完脚本后立刻执行，不用等整个页面都加载完，属于异步执行。
-     
-     <script async src=“URL”></script>
+   
+     `<script async src=“URL”></script>`
+   
    - Start —— 起始值
+   
    - Reversed —— 倒叙排列
      <ol start=“10” reversed>
      <li>Html</li>
      <li>Css</li>
      <li>JavaScript</li>
      </ol>
+     
    - manifest=“cache.manifest”（定义页面离线应用文件）
-     <html manifest="cache.manifest">
+     `<html manifest="cache.manifest">`
 
 ## 元素分类
 
 ### 块级元素
 
-div p table ul lo li h1-h6 dl dt 
+div p ul ol li h1-h6 dl dt form table  hr
 
 ### 行内元素
 
@@ -193,6 +198,192 @@ a img span b strong input select section
 ---
 
 # CSS
+
+## 建议属性书写顺序
+
+1. 布局定位属性
+   - display / position / float / clear / visibility / overflow
+2. 自身属性
+   - width / height / margin / padding / border / background
+3. 文本属性
+   - color / font / text-decoration / text-align / vertical-align / white-space / break-word
+4. 其他属性
+   - content / cursor / border-radius / box-shadow / text-shadow / background: linear-gradient...
+
+## CSS3新增语法
+
+### 新增选择器
+
+1. **属性选择器**
+   - E[attr] 选择具有attr属性的E元素
+   - E[attr=val] 选择具有attr属性，且attr的属性值为val（区分大小写）的E元素
+   - E[attr^=val] 选择具有attr属性且属性值是以val开头的字符串的E元素
+   - E[attr$=val] 属性值以val结尾
+   - 其他如：E[attr|=val] , E[attr ~= val], E[attr*=val]
+2. **结构伪类选择器**
+   - E:first-child
+   - E:last-child
+   - E F:nth-child(n): 选择父元素E的第n个子元素F，n 可为整数，关键字even、odd，公式
+   - E F:nth-last-child(n)：选择元素E的倒数第n个子元素F
+   - E:nth-of-type(n): 选择父元素内具有指定类型的第n个E元素
+   - E:nth-last-of-type(n)：同上，倒数
+   - E:fisrt-of-type 选择类型为E的第一个元素
+   - E:last-of-type
+   - E:only-child
+   - E:only-of-type
+   - E:empty：选择没有子元素的元素
+3. **伪元素选择器**
+   - ::before
+   - ::after
+   - ::first-line
+   - ::first-letter
+
+### filter 属性
+
+filter 属性将模糊或颜色偏移等图形效果应用于元素
+
+- filter：函数()
+  1. filter: blur(5px)  数值越大图像越模糊
+  2. 其他见文档
+
+### calc 属性
+
+计算CSS属性值，如width，height，等
+
+## 浮动
+
+<u>多个块级元素纵向排列找标准流，横向排列找浮动</u>
+
+1. 浮动属性使元素脱离标准文档流，即 **脱标**
+2. 浮动的盒子不再保留原先的位置
+3. 任何元素都可以设置浮动，添加浮动之后都具有行内块元素的属性，即行内元素浮动后可以直接设置高度和宽度，无需设置display属性
+   - **块级元素如果没有设置宽度，默认和父元素一样宽，但是添加浮动后，大小根据内容来定**
+   - 浮动的盒子之间没有缝隙，紧紧挨着
+   - 行内元素同理
+4. 浮动元素经常和标准流父级搭配使用，即父元素标准流，子元素再浮动
+5. 浮动元素只会影响其后的标准流，不会影响前面的标准流
+
+### 清除浮动
+
+父元素高度塌陷：父元素在很多情况下不方便给高度，但子元素又需要浮动，导致父元素高度为0，影响父元素之后的标准流。
+
+清除浮动：
+
+```css
+/* 方法1：额外标签法，又隔墙法，在最后一个浮动元素的后面额外添加一个空的块级标签， 通俗易懂书写方便，但是多添加标签，结构化差， 不常用*/
+.clear {
+    clear: both; /*left, right, both*/
+}
+/* 方法2：父元素添加overflow属性，设置值为hidden，auto，scroll */
+.father {
+    overflow: hidden;
+}
+/* 方法3：父元素添加after伪元素: 额外标签法的升级 */
+.clearfix::after {
+    content: "";
+    display: block; /* 将伪元素转换为块级元素 */
+    height: 0; 
+    clear: both;
+    visibility: hideen;
+}
+/* 方法4：父元素添加双伪元素 */
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table; /* 将两个伪元素转换为块级元素并且在一行显示 */
+}
+.clearfix:after {
+    clear: both; 
+}
+```
+
+### 文字围绕浮动元素
+
+**浮动元素不会压住文字**，所以文字可以作为标准流
+
+如文字围绕图片，将图片设置浮动即可
+
+## 定位
+
+定位组成：position
+
+定位 = 定位模式 + 边偏移
+
+定位模式指定定位方式，边偏移决定元素最终位置，边偏移：<u>top bottom left right</u> 
+
+### 定位模式
+
+1. static 静态定位
+
+   静态定位即没有定位
+
+2. **relative 相对定位**
+
+   元素在移动位置时相对于其原来的位置,  <u>不脱标</u>，原来的位置保留，后面的盒子任然以标准流的方式对待它。
+
+   ```css
+   .box {
+       position: relative;
+       top: 100px;
+       left: 100px;
+   }
+   ```
+
+   
+
+3. **absolute 绝对定位**
+
+   元素在移动时相对于其祖先元素。
+
+   - 没有祖先元素或祖先元素没有定位，则以浏览器文档为准定位
+   - 祖先元素有定位（相对，绝对，固定），以最近一级有定位的祖先元素为参考元素
+   - 绝对定位不再占有原先的位置，<u>脱标</u>
+   - 应用：**“子绝父相”**
+   - 绝对定位的盒子（行内元素）可以直接设置高度和宽度
+
+4. **fixed 固定定位**
+
+   元素固定于浏览器可视区域某个位置，可以在浏览器页面滚动时元素位置保持不变
+
+   - 以浏览器的可视窗口为参照点移动元素
+   - 固定定位不占有原先的位置，脱标
+
+5. sticky 粘性定位
+
+   - 以浏览器的可视窗口为参照点移动元素
+   - 占有原先的位置
+   - 必须添加边偏移才生效
+
+6. z-index
+
+   - 属性值为数值，没有单位，可以是正负整数、0，默认值auto，数值越大越靠上
+   - 值相同则根据层叠性，后来居上
+   - 只有定位的盒子才有该属性
+
+## 元素的显示与隐藏
+
+### display
+
+display: none;  隐藏元素，不再占有原来的位置，元素还在文档结构中；
+
+display: block; 转化为块级元素或显示元素；
+
+### visibility
+
+visibility: visible; 元素可见；
+
+visibility: hidden; 隐藏元素，任然占有原来的位置；  
+
+### overflow
+
+对溢出的部分进行隐藏
+
+overflow: visible; 溢出部分可见
+
+overflow: hidden; 隐藏溢出的部分，在有定位的盒子中，慎用overflow: hidden;
+
+overflow: scroll; 添加滚动条
+
+overflow: auto; 根据内容，需要时添加滚动条
 
 ## 盒模型
 
@@ -237,6 +428,42 @@ box-sizing: border-box; /* IE盒模型 */
 - 内层元素透明边框 border: 1px solid transparent
 
 ---
+
+## 负margin妙用
+
+解决相邻盒子边框重叠：如边框为1px, margin-left: -1px;
+
+此时若添加鼠标hover时的效果，提高当前盒子的层级（没有定位添加相对定位，因为相对定位不会脱离标准流，有定位则加z-index）
+
+```css
+<style>
+        div {
+            width: 600px;
+            height: 150px;
+            margin: 100px auto;
+        }
+
+        ul li {
+            position: relative; 
+            float: left;
+            width: 100px;
+            height: 150px;
+            border: 1px solid red;
+            margin-left: -1px;
+        }
+
+        /* 盒子没有定位时 */
+        /* ul li:hover {
+            position: relative;
+            border-color: blue;
+        } */
+        /* 盒子有定位时 */
+        ul li:hover {
+            z-index: 1;
+            border-color: blue;
+        }
+    </style>
+```
 
 ## BFC
 
@@ -420,12 +647,12 @@ https://stylus.bootcss.com/
 
 ## CSS动画
 
-`transition`: 过渡动画
+`transition`: 过渡动画 *transition: width .5s ease 0s, height .5s ease 1s;*
 
 - `transition-property`: 属性
 - `transition-duration`: 间隔
 - `transition-timing-function`: 曲线
-- `transition-delay`: 延迟
+- `transition-delay`: 延迟时间
 - 常用钩子: `transitionend`
 
 ```
@@ -476,4 +703,59 @@ animation / keyframes
 - `skew`
 - `opacity`
 - `color`
+
+## CSS 三角形
+
+## 用户界面
+
+### 鼠标
+
+<img src="HTML5&CSS3.assets/code-1626069884523.png" style="zoom:50%;" />
+
+### 表单轮廓线和禁止拖动文本框
+
+<img src="HTML5&CSS3.assets/code.png" style="zoom:50%;" />
+
+## vertical-align实现图片、表单和文字垂直居中对齐
+
+文字默认基线对齐baseline，可以改为顶线对齐 top，中线对齐 middle，底线对齐bottom。
+
+vertical-align针对行内元素，行内块元素，块级元素没有该属性
+
+设置vertical-align实现文本和图片对齐。
+
+vertical-align: middle;
+
+图片底侧会有一个空白缝隙，是因为行内块元素会和文字的基线对齐。主要解决方法：
+
+1. 给图片添加 vertical-align: middle | top | bottom，推荐使用该方法；
+2. 将图片转换为块级元素；
+
+## 文本的省略号
+
+### 单行文本省略号
+
+1. white-space: nowrap; 不允许换行
+2. overflow: hidden; 隐藏溢出部分
+3. text-overflow: ellipsis; 溢出部分用省略号
+
+### 多行文本省略号
+
+- **方法1**
+
+  通过私有属性 -webkit-box 用于自适应布局*， *缺点：使用私有属性需要考虑跨浏览器的问题，适用webkit浏览器，移动端大部分是webkit内核
+
+  <img src="HTML5&CSS3.assets/code-1626075981451.png" style="zoom:50%;" />
+
+- ***方法2***
+
+  双重伪元素实现 省略号也是文本，在文本里加几个点
+
+  ::before 显示省略号：right 、 bottom 设置省略号的位置，::after 当拖动到文本完全显示不需要省略号是覆盖掉省略号
+
+  *缺点：如果背景是图片的话不好操作*
+
+  <img src="HTML5&CSS3.assets/code-1626075845549.png" style="zoom:50%;" />
+
+
 
